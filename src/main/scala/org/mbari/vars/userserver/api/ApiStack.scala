@@ -1,13 +1,16 @@
 package org.mbari.vars.userserver.api
 
-import java.net.{ URI, URL }
-import java.time.{ Duration, Instant }
+import java.net.{URI, URL}
+import java.time.{Duration, Instant}
 import java.util.UUID
 
-import org.scalatra.{ ContentEncodingSupport, FutureSupport, ScalatraServlet }
+import org.json4s.Formats
+import org.mbari.vars.userserver.json4s
+import org.scalatra.json.JacksonJsonSupport
+import org.scalatra.{ContentEncodingSupport, FutureSupport, ScalatraServlet}
 import org.scalatra.swagger.SwaggerSupport
 import org.scalatra.util.conversion.TypeConverter
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.Try
 
@@ -19,11 +22,15 @@ import scala.util.Try
  * @since 2016-05-23T13:32:00
  */
 abstract class ApiStack extends ScalatraServlet
+    with ApiAuthenticationSupport
+    with JacksonJsonSupport
     with ContentEncodingSupport
     with SwaggerSupport
     with FutureSupport {
 
-  protected[this] val log = LoggerFactory.getLogger(getClass)
+  protected[this] val log: Logger = LoggerFactory.getLogger(getClass)
+
+  protected[this] implicit val jsonFormats: Formats = json4s.CustomFormats
 
   protected implicit val stringToUUID = new TypeConverter[String, UUID] {
     override def apply(s: String): Option[UUID] = Try(UUID.fromString(s)).toOption

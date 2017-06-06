@@ -8,11 +8,11 @@ import org.mbari.vars.userserver.model.PrefNode
   */
 trait PrefNodeDAO extends DAO {
 
-  def insert(prefNode: PrefNode)
+  def create(prefNode: PrefNode): Unit
 
-  def update(prefNode: PrefNode)
+  def update(prefNode: PrefNode): Option[PrefNode]
 
-  def delete(prefNode: PrefNode)
+  def delete(prefNode: PrefNode): Unit
 
   def findByNodeNameAndKey(nodeName: String, key: String): Option[PrefNode]
 

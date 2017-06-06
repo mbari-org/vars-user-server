@@ -2,6 +2,7 @@ package org.mbari.vars.userserver.dao.jpa
 
 import javax.persistence.EntityManagerFactory
 
+import com.typesafe.config.ConfigFactory
 import org.mbari.vars.userserver.dao.{DAOFactory, PrefNodeDAO, UserDAO}
 import vars.jpa.{MiscDAOFactoryImpl, MiscFactoryImpl}
 
@@ -23,4 +24,19 @@ trait JPADAOFactory extends DAOFactory {
 
   override def newPrefNodeDAO(): PrefNodeDAO =
     new PrefNodeDAOImpl(entityManagerFactory.createEntityManager())
+}
+
+
+class JPADAOFactoryImpl(val entityManagerFactory: EntityManagerFactory) extends JPADAOFactory
+
+object JPADAOFactory extends JPADAOFactory {
+
+  lazy val entityManagerFactory = {
+    val config = ConfigFactory.load()
+    val environment = config.getString("database.environment")
+    val nodeName = if (environment.equalsIgnoreCase("production")) "org.mbari.vars.users.database.production"
+    else "org.mbari.vars.users.database.development"
+
+    //EntityManagerFactories(nodeName)
+  }
 }

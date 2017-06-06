@@ -5,8 +5,11 @@ import javax.persistence.EntityManager
 
 import org.mbari.vars.userserver.dao.PrefNodeDAO
 import org.mbari.vars.userserver.model.PrefNode
+
 import scala.collection.JavaConverters._
 import vars.jpa.PreferenceNode
+
+import scala.util.Try
 
 /**
   * @author Brian Schlining
@@ -15,11 +18,11 @@ import vars.jpa.PreferenceNode
 class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
     extends BaseDAO(entityManager) with PrefNodeDAO {
 
-  override def insert(prefNode: PrefNode): Unit =
+  override def create(prefNode: PrefNode): Unit =
     entityManager.persist(prefNode.toPreferenceNode)
 
-  override def update(prefNode: PrefNode): Unit =
-    entityManager.merge(prefNode.toPreferenceNode)
+  override def update(prefNode: PrefNode): Option[PrefNode] =
+    Try(PrefNode(entityManager.merge(prefNode.toPreferenceNode))).toOption
 
   override def delete(prefNode: PrefNode): Unit =
     entityManager.remove(prefNode.toPreferenceNode)

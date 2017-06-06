@@ -20,7 +20,7 @@ class WebPrefs(val dao: PrefNodeDAO, parentPrefs: AbstractPreferences = null, na
   override def putSpi(key: String, value: String): Unit = {
     dao.findByNodeNameAndKey(absolutePath(), key) match {
       case None =>
-        dao.insert(PrefNode(absolutePath(), key, value))
+        dao.create(PrefNode(absolutePath(), key, value))
       case Some(node) =>
         if (node.value != value) dao.update(node.copy(value = value))
     }

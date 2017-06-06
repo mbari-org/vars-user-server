@@ -12,11 +12,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class PrefNodeController(daoFactory: DAOFactory) extends BaseController[PrefNodeDAO] {
   override def newDAO(): PrefNodeDAO = daoFactory.newPrefNodeDAO()
 
-  def insert(name: String, key: String, value: String)
+  def create(name: String, key: String, value: String)
             (implicit ec: ExecutionContext): Future[PrefNode] =
     exec(d => {
       val node = PrefNode(name, key, value)
-      d.insert(node)
+      d.create(node)
       node
     })
 

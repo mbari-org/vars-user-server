@@ -6,6 +6,7 @@ val gsonVersion = "2.8.0"
 val hikariVersion = "2.4.5"
 lazy val jasyptVersion = "1.9.2"
 val jettyVersion = "9.4.4.v20170414"
+lazy val json4sVersion = "3.5.2"
 val jtaVersion = "1.1"
 val junitVersion = "4.12"
 val logbackVersion = "1.1.7"
@@ -78,7 +79,7 @@ lazy val optionSettings = Seq(
     "-language:higherKinds",
     "-language:implicitConversions",
     "-unchecked",
-    "-Xfatal-warnings",
+    //"-Xfatal-warnings",
     "-Xlint",
     "-Yno-adapted-args",
     "-Ywarn-value-discard",
@@ -117,6 +118,7 @@ lazy val `vars-user-server` = (project in file("."))
         "org.eclipse.jetty" % "jetty-servlets" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-webapp" % jettyVersion % "compile;test",
         "org.jasypt" % "jasypt" % jasyptVersion,
+        "org.json4s" %% "json4s-jackson" % json4sVersion,
         "org.mbari.vars" % "vars-jpa" % varsVersion,
         "org.scalatest" %% "scalatest" % scalatestVersion % "test",
         "org.scalatra" %% "scalatra" % scalatraVersion,
@@ -128,7 +130,8 @@ lazy val `vars-user-server` = (project in file("."))
         "org.scalatra" %% "scalatra-scalatest" % scalatraVersion)
           .map(_.excludeAll(ExclusionRule("org.slf4j", "slf4j-jdk14"),
             ExclusionRule("org.slf4j", "slf4j-log4j12"),
-            ExclusionRule("javax.servlet", "servlet-api"))),
+            ExclusionRule("javax.servlet", "servlet-api"),
+            ExclusionRule(organization = "org.scala-lang.modules"))),
     mainClass in assembly := Some("JettyMain")
   )
   .settings( // config sbt-pack
