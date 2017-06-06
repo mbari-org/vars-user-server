@@ -130,8 +130,7 @@ lazy val `vars-user-server` = (project in file("."))
         "org.scalatra" %% "scalatra-scalatest" % scalatraVersion)
           .map(_.excludeAll(ExclusionRule("org.slf4j", "slf4j-jdk14"),
             ExclusionRule("org.slf4j", "slf4j-log4j12"),
-            ExclusionRule("javax.servlet", "servlet-api"),
-            ExclusionRule(organization = "org.scala-lang.modules"))),
+            ExclusionRule("javax.servlet", "servlet-api"))),
     mainClass in assembly := Some("JettyMain")
   )
   .settings( // config sbt-pack
