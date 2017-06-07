@@ -16,8 +16,13 @@ class PrefNodeController(daoFactory: DAOFactory) extends BaseController[PrefNode
             (implicit ec: ExecutionContext): Future[PrefNode] =
     exec(d => {
       val node = PrefNode(name, key, value)
-      d.create(node)
-      node
+      d.findByNodeNameAndKey(name, key) match {
+        case Some(n) =>
+          throw new RuntimeException(s"A node, key pair of ($name, $key) already exists")
+        case None =>
+          d.create(node)
+          node
+      }
     })
 
   def update(name: String, key: String, value: String)
@@ -29,9 +34,9 @@ class PrefNodeController(daoFactory: DAOFactory) extends BaseController[PrefNode
     })
   }
 
-  def delete(name: String, key: String, value: String)
+  def delete(name: String, key: String)
             (implicit ec: ExecutionContext): Future[Unit] =
-    exec(d => d.delete(PrefNode(name, key, value)))
+    exec(d => d.delete(PrefNode(name, key, null)))
 
   def findByNodeNameAndKey(name: String, key: String)
                           (implicit ec: ExecutionContext): Future[Option[PrefNode]] =

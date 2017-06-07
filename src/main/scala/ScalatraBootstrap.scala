@@ -6,7 +6,7 @@ import org.mbari.vars.userserver.api.{PrefNodeV1Api, UserV1Api}
 import org.mbari.vars.userserver.controllers.{PrefNodeController, UserController}
 import org.mbari.vars.userserver.dao.DAOFactory
 import org.scalatra.LifeCycle
-import org.scalatra.swagger.ApiInfo
+import org.scalatra.swagger.{ApiInfo, Swagger}
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.ExecutionContext
@@ -30,6 +30,8 @@ class ScalatraBootstrap extends LifeCycle {
     """http://opensource.org/licenses/MIT"""
   )
 
+  implicit val swagger = new Swagger("1.2", "1.0.0", apiInfo)
+
   override def init(context: ServletContext): Unit = {
 
     println("STARTING UP NOW")
@@ -41,7 +43,11 @@ class ScalatraBootstrap extends LifeCycle {
     val userController = new UserController(daoFactory)
 
     val prefNodeApi = new PrefNodeV1Api(prefNodeController)
-    val userApi = new UserV1Api()
+    val userApi = new UserV1Api(userController)
+
+    context.mount(prefNodeApi, "/v1/prefs")
+    context.mount(userApi, "/v1/users")
+
 
   }
 

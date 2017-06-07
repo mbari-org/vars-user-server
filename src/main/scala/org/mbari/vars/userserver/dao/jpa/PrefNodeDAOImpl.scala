@@ -24,8 +24,15 @@ class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
   override def update(prefNode: PrefNode): Option[PrefNode] =
     Try(PrefNode(entityManager.merge(prefNode.toPreferenceNode))).toOption
 
-  override def delete(prefNode: PrefNode): Unit =
-    entityManager.remove(prefNode.toPreferenceNode)
+  override def delete(prefNode: PrefNode): Unit = {
+    val n = find("PreferenceNode.findByNodeNameAndPrefKey",
+      Map("nodeName" -> prefNode.name, "prefKey" -> prefNode.key))
+      .headOption
+    n match {
+      case None => // Do nothing
+      case Some(node) => entityManager.remove(node)
+    }
+  }
 
   override def findByNodeNameAndKey(nodeName: String, key: String): Option[PrefNode] =
     findByNamedQuery("PreferenceNode.findByNodeNameAndPrefKey",
@@ -44,13 +51,15 @@ class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
   override def findByNodeNameLike(name: String): Iterable[PrefNode] =
     findByNamedQuery("PreferenceNode.findAllLikeNodeName", Map("nodeName" -> s"$name%"))
 
-  private def findByNamedQuery(name: String, namedParams: Map[String, _]): List[PrefNode] = {
+  private def findByNamedQuery(name: String, namedParams: Map[String, _]): List[PrefNode] =
+    find(name, namedParams).map(PrefNode(_))
+
+  private def find(name: String, namedParams: Map[String, _]): List[PreferenceNode] = {
     val query = entityManager.createNamedQuery(name)
     namedParams.foreach({ case (k, v) => query.setParameter(k, v) })
     val resultList = query.getResultList
     resultList.asScala
       .map(_.asInstanceOf[PreferenceNode])
-      .map(PrefNode(_))
       .toList
   }
 

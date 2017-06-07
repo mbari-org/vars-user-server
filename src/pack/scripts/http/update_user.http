@@ -1,0 +1,4 @@
+PUT http://localhost:8080/v1/users/trashme HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+password=foo&role=ReadOnly&firstName=Bob&lastName=Youruncle&affilation=MBARI&email=test

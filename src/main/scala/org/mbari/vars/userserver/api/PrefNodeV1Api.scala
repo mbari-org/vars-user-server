@@ -68,6 +68,34 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val swagger: Swagge
     controller.create(name, key, value)
   }
 
+  put("/:name/:key") {
+    val name = params.get("name").getOrElse(halt(BadRequest(
+      body = "{}",
+      reason = "A 'name' parameter is required"
+    )))
+    val key = params.get("key").getOrElse(halt(BadRequest(
+      body = "{}",
+      reason = "A 'key' parameter is required"
+    )))
+    val value = params.get("value").getOrElse(halt(BadRequest(
+      body = "{}",
+      reason = "A 'value' parameter is required"
+    )))
+    controller.update(name, key, value)
+  }
+
+  delete("/:name/:key") {
+    val name = params.get("name").getOrElse(halt(BadRequest(
+      body = "{}",
+      reason = "A 'name' parameter is required"
+    )))
+    val key = params.get("key").getOrElse(halt(BadRequest(
+      body = "{}",
+      reason = "A 'key' parameter is required"
+    )))
+    controller.delete(name, key)
+  }
+
 
 
 }

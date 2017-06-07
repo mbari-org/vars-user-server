@@ -22,7 +22,10 @@ class UserController(daoFactory: DAOFactory) extends BaseController[UserDAO] {
     exec(d => {
       val user = User(username, password, role, affiliation, firstName, lastName, email)
       d.create(user)
-      user
+      d.findByName(username) match {
+        case Some(user) => user
+        case None => throw new RuntimeException(s"Failed to create user named $username")
+      }
     })
 
   def update(username: String,

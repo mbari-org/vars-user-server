@@ -68,9 +68,9 @@ class UserV1Api(controller: UserController)
     controller.create(username, password, role, firstName, lastName, affiliation, email)
   }
 
-  put("/") {
+  put("/:name") {
     validateRequest()
-    val username = params.get("username").getOrElse(halt(BadRequest(
+    val username = params.get("name").getOrElse(halt(BadRequest(
       body = "{}",
       reason = "A 'username' parameter is required"
     )))
