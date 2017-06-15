@@ -1,11 +1,10 @@
 package org.mbari.vars.userserver.api
 
 import org.mbari.vars.userserver.controllers.PrefNodeController
-import org.scalatra.BadRequest
+import org.scalatra.{BadRequest, NotFound}
 import org.scalatra.swagger.Swagger
 
 import scala.concurrent.ExecutionContext
-
 import org.scalatra.json._
 
 /**
@@ -41,6 +40,10 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val swagger: Swagge
       reason = "A 'key' parameter is required"
     )))
     controller.findByNodeNameAndKey(name, key)
+      .map({
+        case None => halt(NotFound(body = "{}", reason = s"Did nor find pref with name: '$name and key '$key'"))
+        case Some(p) => p
+      })
   }
 
   get("/startswith/:name") {

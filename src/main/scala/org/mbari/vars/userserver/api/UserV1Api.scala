@@ -1,7 +1,7 @@
 package org.mbari.vars.userserver.api
 
 import org.mbari.vars.userserver.controllers.UserController
-import org.scalatra.BadRequest
+import org.scalatra.{BadRequest, NotFound}
 import org.scalatra.swagger.Swagger
 
 import scala.concurrent.ExecutionContext
@@ -27,7 +27,10 @@ class UserV1Api(controller: UserController)
       body = "{}",
       reason = "A 'username' path parameter is required"
     )))
-    controller.findByName(name)
+    controller.findByName(name).map({
+      case None => halt(NotFound(body = "{}", reason = s"No user with name '$name' was found"))
+      case Some(u) => u
+    })
   }
 
   get("/role/:role") {
@@ -87,6 +90,10 @@ class UserV1Api(controller: UserController)
     val affiliation = params.get("affiliation")
     val email = params.get("email")
     controller.update(username, password, role, firstName, lastName, affiliation, email)
+          .map({
+            case None => halt(NotFound(body = "{}", reason = s"Failed to update user named '$username'"))
+            case Some(u) => u
+          })
   }
 
 }
