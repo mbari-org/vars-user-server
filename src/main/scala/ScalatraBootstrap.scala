@@ -2,7 +2,7 @@ import java.util.concurrent.Executors
 import javax.servlet.ServletContext
 
 import org.mbari.vars.userserver.Constants
-import org.mbari.vars.userserver.api.{PrefNodeV1Api, UserV1Api}
+import org.mbari.vars.userserver.api.{AuthorizationV1Api, PrefNodeV1Api, UserV1Api}
 import org.mbari.vars.userserver.controllers.{PrefNodeController, UserController}
 import org.mbari.vars.userserver.dao.DAOFactory
 import org.scalatra.LifeCycle
@@ -44,9 +44,11 @@ class ScalatraBootstrap extends LifeCycle {
 
     val prefNodeApi = new PrefNodeV1Api(prefNodeController)
     val userApi = new UserV1Api(userController)
+    val authApi = new AuthorizationV1Api
 
     context.mount(prefNodeApi, "/v1/prefs")
     context.mount(userApi, "/v1/users")
+    context.mount(authApi, "/v1/auth")
 
 
   }
