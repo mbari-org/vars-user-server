@@ -38,7 +38,8 @@ class UserDAOImpl @Inject() (entityManager: EntityManager,
   override def create(user: User): Unit = {
     val userAccount = miscFactory.newUserAccount()
     userAccount.setUserName(user.username)
-    userAccount.setPassword(user.password)
+    if (!user.isEncrypted) userAccount.setPassword(user.password)
+    else throw new IllegalArgumentException("Attempting to create a user with previously encrypted password")
     userAccount.setRole(user.role)
     user.firstName.foreach(userAccount.setFirstName)
     user.lastName.foreach(userAccount.setLastName)
@@ -50,7 +51,7 @@ class UserDAOImpl @Inject() (entityManager: EntityManager,
   override def update(user: User): Option[User] = {
     val ua = Option(dao.findByUserName(user.username)).map( userAccount => {
       userAccount.setUserName(user.username)
-      userAccount.setPassword(user.password)
+      if (!user.isEncrypted) userAccount.setPassword(user.password)
       userAccount.setRole(user.role)
       user.firstName.foreach(userAccount.setFirstName)
       user.lastName.foreach(userAccount.setLastName)

@@ -64,8 +64,8 @@ class UserV1Api(controller: UserController)
       body = "{}",
       reason = "A 'role' parameter is required"
     )))
-    val firstName = params.get("first_name")
-    val lastName = params.get("last_name")
+    val firstName = params.get("firstName")
+    val lastName = params.get("lastName")
     val affiliation = params.get("affiliation")
     val email = params.get("email")
     controller.create(username, password, role, firstName, lastName, affiliation, email)
@@ -77,19 +77,12 @@ class UserV1Api(controller: UserController)
       body = "{}",
       reason = "A 'username' parameter is required"
     )))
-    val password = params.get("password").getOrElse(halt(BadRequest(
-      body = "{}",
-      reason = "A 'password' parameter is required"
-    )))
-    val role = params.get("role").getOrElse(halt(BadRequest(
-      body = "{}",
-      reason = "A 'role' parameter is required"
-    )))
-    val firstName = params.get("first_name")
-    val lastName = params.get("last_name")
+    val role = params.get("role")
+    val firstName = params.get("firstName")
+    val lastName = params.get("lastName")
     val affiliation = params.get("affiliation")
     val email = params.get("email")
-    controller.update(username, password, role, firstName, lastName, affiliation, email)
+    controller.update(username, role, firstName, lastName, affiliation, email)
           .map({
             case None => halt(NotFound(body = "{}", reason = s"Failed to update user named '$username'"))
             case Some(u) => u

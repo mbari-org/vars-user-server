@@ -1,6 +1,8 @@
 package org.mbari.vars.userserver.model
 
 import vars.UserAccount
+import vars.jpa.UserAccountImpl
+
 
 /**
   * @author Brian Schlining
@@ -13,7 +15,10 @@ case class User(username: String,
                 firstName: Option[String] = None,
                 lastName: Option[String] = None,
                 email: Option[String] = None,
-               id: Option[Long] = None)
+                id: Option[Long] = None,
+                isEncrypted: Boolean = true) {
+
+}
 
 object User {
   def apply(userAccount: UserAccount): User = User(userAccount.getUserName,
@@ -24,4 +29,5 @@ object User {
       Option(userAccount.getLastName),
       Option(userAccount.getEmail),
       Option(userAccount.getPrimaryKey).map(_.asInstanceOf[Long]))
+
 }

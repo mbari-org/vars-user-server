@@ -38,7 +38,7 @@ class ScalatraBootstrap extends LifeCycle {
 
     implicit val ec = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(Runtime.getRuntime.availableProcessors()))
 
-    val daoFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    val daoFactory: DAOFactory = Constants.DAOFactory
     val prefNodeController = new PrefNodeController(daoFactory)
     val userController = new UserController(daoFactory)
 

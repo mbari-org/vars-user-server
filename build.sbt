@@ -1,6 +1,7 @@
 val auth0Version = "3.1.0"
 val codecVersion = "1.10"
 val configVersion = "1.3.1"
+val derbyVersion = "10.13.1.1"
 val gsonJavatimeVersion = "1.1.1"
 val gsonVersion = "2.8.0"
 val hikariVersion = "2.4.5"
@@ -114,6 +115,9 @@ lazy val `vars-user-server` = (project in file("."))
         "commons-codec" % "commons-codec" % codecVersion,
         "javax.servlet" % "javax.servlet-api" % servletVersion,
         "javax.transaction" % "jta" % jtaVersion,
+        "org.apache.derby" % "derby" % derbyVersion, //          % "test",
+        "org.apache.derby" % "derbyclient" % derbyVersion, //          % "test",
+        "org.apache.derby" % "derbynet" % derbyVersion, //
         "org.eclipse.jetty" % "jetty-server" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-servlets" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-webapp" % jettyVersion % "compile;test",

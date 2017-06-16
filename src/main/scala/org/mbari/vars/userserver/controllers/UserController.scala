@@ -20,7 +20,7 @@ class UserController(daoFactory: DAOFactory) extends BaseController[UserDAO] {
              affiliation: Option[String] = None,
              email: Option[String] = None)(implicit ec: ExecutionContext): Future[User] =
     exec(d => {
-      val user = User(username, password, role, affiliation, firstName, lastName, email)
+      val user = User(username, password, role, affiliation, firstName, lastName, email, isEncrypted = false)
       d.create(user)
       d.findByName(username) match {
         case Some(user) => user
@@ -29,16 +29,18 @@ class UserController(daoFactory: DAOFactory) extends BaseController[UserDAO] {
     })
 
   def update(username: String,
-             password: String,
-             role: String,
+             role: Option[String] = None,
              firstName: Option[String] = None,
              lastName: Option[String] = None,
              affiliation: Option[String] = None,
              email: Option[String] = None)(implicit ec: ExecutionContext): Future[Option[User]] =
-    exec(d => {
-      val user = User(username, password, role, affiliation, firstName, lastName, email)
-      d.update(user)
-    })
+    exec(d => d.findByName(username) match {
+        case None => None
+        case Some(u) =>
+          val user = User(username, u.password, role.getOrElse(u.role), affiliation, firstName, lastName, email)
+          d.update(user)
+      })
+
 
   def delete(username: String)(implicit ec: ExecutionContext): Future[Unit] =
     exec(d => d.delete(User(username, "")))
