@@ -1,15 +1,15 @@
 package org.mbari.vars.userserver.model
 
-import java.util.prefs.{AbstractPreferences, Preferences}
+import java.util.prefs.{ AbstractPreferences, Preferences }
 
 import org.mbari.vars.userserver.dao.PrefNodeDAO
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T11:22:00
-  */
+ * @author Brian Schlining
+ * @since 2017-06-05T11:22:00
+ */
 class WebPrefs(val dao: PrefNodeDAO, parentPrefs: AbstractPreferences = null, name: String = "")
-  extends AbstractPreferences(parentPrefs, name) {
+    extends AbstractPreferences(parentPrefs, name) {
 
   override def flushSpi(): Unit = { /* do nothing */ }
 
@@ -37,7 +37,7 @@ class WebPrefs(val dao: PrefNodeDAO, parentPrefs: AbstractPreferences = null, na
       if (childPath.startsWith("/")) childPath = childPath.substring(1, childPath.length)
       // Take up to the first '/' (or all if no slash is present)
       if (childPath.indexOf("/") >= 0) childPath.substring(0, childPath.indexOf("/"))
-          else childPath
+      else childPath
     }
     childNames.toArray.distinct
   }

@@ -7,15 +7,17 @@ import org.mbari.vars.userserver.dao.UserDAO
 import org.mbari.vars.userserver.model.User
 
 import scala.collection.JavaConverters._
-import vars.{MiscDAOFactory, MiscFactory}
+import vars.{ MiscDAOFactory, MiscFactory }
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T10:38:00
-  */
-class UserDAOImpl @Inject() (entityManager: EntityManager,
-                             miscDAOFactory: MiscDAOFactory,
-                             miscFactory: MiscFactory)
+ * @author Brian Schlining
+ * @since 2017-06-05T10:38:00
+ */
+class UserDAOImpl @Inject() (
+  entityManager: EntityManager,
+  miscDAOFactory: MiscDAOFactory,
+  miscFactory: MiscFactory
+)
     extends BaseDAO(entityManager) with UserDAO {
 
   private[this] val dao = miscDAOFactory.newUserAccountDAO(entityManager)
@@ -31,9 +33,8 @@ class UserDAOImpl @Inject() (entityManager: EntityManager,
   }
 
   override def findAll(): Iterable[User] = dao.findAll()
-      .asScala
-      .map(User(_))
-
+    .asScala
+    .map(User(_))
 
   override def create(user: User): Unit = {
     val userAccount = miscFactory.newUserAccount()
@@ -49,7 +50,7 @@ class UserDAOImpl @Inject() (entityManager: EntityManager,
   }
 
   override def update(user: User): Option[User] = {
-    val ua = Option(dao.findByUserName(user.username)).map( userAccount => {
+    val ua = Option(dao.findByUserName(user.username)).map(userAccount => {
       userAccount.setUserName(user.username)
       if (!user.isEncrypted) userAccount.setPassword(user.password)
       userAccount.setRole(user.role)

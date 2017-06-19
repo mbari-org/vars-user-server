@@ -1,24 +1,26 @@
 package org.mbari.vars.userserver.controllers
 
-import org.mbari.vars.userserver.dao.{DAOFactory, UserDAO}
+import org.mbari.vars.userserver.dao.{ DAOFactory, UserDAO }
 import org.mbari.vars.userserver.model.User
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T14:26:00
-  */
+ * @author Brian Schlining
+ * @since 2017-06-05T14:26:00
+ */
 class UserController(daoFactory: DAOFactory) extends BaseController[UserDAO] {
   override def newDAO(): UserDAO = daoFactory.newUserDAO()
 
-  def create(username: String,
-             password: String,
-             role: String,
-             firstName: Option[String] = None,
-             lastName: Option[String] = None,
-             affiliation: Option[String] = None,
-             email: Option[String] = None)(implicit ec: ExecutionContext): Future[User] =
+  def create(
+    username: String,
+    password: String,
+    role: String,
+    firstName: Option[String] = None,
+    lastName: Option[String] = None,
+    affiliation: Option[String] = None,
+    email: Option[String] = None
+  )(implicit ec: ExecutionContext): Future[User] =
     exec(d => {
       val user = User(username, password, role, affiliation, firstName, lastName, email, isEncrypted = false)
       d.create(user)
@@ -28,19 +30,20 @@ class UserController(daoFactory: DAOFactory) extends BaseController[UserDAO] {
       }
     })
 
-  def update(username: String,
-             role: Option[String] = None,
-             firstName: Option[String] = None,
-             lastName: Option[String] = None,
-             affiliation: Option[String] = None,
-             email: Option[String] = None)(implicit ec: ExecutionContext): Future[Option[User]] =
+  def update(
+    username: String,
+    role: Option[String] = None,
+    firstName: Option[String] = None,
+    lastName: Option[String] = None,
+    affiliation: Option[String] = None,
+    email: Option[String] = None
+  )(implicit ec: ExecutionContext): Future[Option[User]] =
     exec(d => d.findByName(username) match {
-        case None => None
-        case Some(u) =>
-          val user = User(username, u.password, role.getOrElse(u.role), affiliation, firstName, lastName, email)
-          d.update(user)
-      })
-
+      case None => None
+      case Some(u) =>
+        val user = User(username, u.password, role.getOrElse(u.role), affiliation, firstName, lastName, email)
+        d.update(user)
+    })
 
   def delete(username: String)(implicit ec: ExecutionContext): Future[Unit] =
     exec(d => d.delete(User(username, "")))

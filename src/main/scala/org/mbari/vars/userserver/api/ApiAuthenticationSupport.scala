@@ -2,12 +2,12 @@ package org.mbari.vars.userserver.api
 
 import com.typesafe.config.ConfigFactory
 import org.mbari.vars.userserver.auth.AuthorizationService
-import org.scalatra.{ScalatraBase, Unauthorized}
+import org.scalatra.{ ScalatraBase, Unauthorized }
 
 /**
-  * @author Brian Schlining
-  * @since 2017-01-18T16:27:00
-  */
+ * @author Brian Schlining
+ * @since 2017-01-18T16:27:00
+ */
 trait ApiAuthenticationSupport { self: ScalatraBase =>
 
   val authorizationService: AuthorizationService = ApiAuthenticationSupport.authorizationService

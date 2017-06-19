@@ -12,9 +12,9 @@ import vars.jpa.PreferenceNode
 import scala.util.Try
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T11:12:00
-  */
+ * @author Brian Schlining
+ * @since 2017-06-05T11:12:00
+ */
 class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
     extends BaseDAO(entityManager) with PrefNodeDAO {
 
@@ -25,8 +25,10 @@ class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
     Try(PrefNode(entityManager.merge(prefNode.toPreferenceNode))).toOption
 
   override def delete(prefNode: PrefNode): Unit = {
-    val n = find("PreferenceNode.findByNodeNameAndPrefKey",
-      Map("nodeName" -> prefNode.name, "prefKey" -> prefNode.key))
+    val n = find(
+      "PreferenceNode.findByNodeNameAndPrefKey",
+      Map("nodeName" -> prefNode.name, "prefKey" -> prefNode.key)
+    )
       .headOption
     n match {
       case None => // Do nothing
@@ -35,16 +37,18 @@ class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
   }
 
   override def findByNodeNameAndKey(nodeName: String, key: String): Option[PrefNode] =
-    findByNamedQuery("PreferenceNode.findByNodeNameAndPrefKey",
-      Map("nodeName" -> nodeName, "prefKey" -> key))
+    findByNamedQuery(
+      "PreferenceNode.findByNodeNameAndPrefKey",
+      Map("nodeName" -> nodeName, "prefKey" -> key)
+    )
       .headOption
 
   /**
-    * Return names of children below the node with this name
-    *
-    * @param name The name of the node
-    * @return names of children below the node
-    */
+   * Return names of children below the node with this name
+   *
+   * @param name The name of the node
+   * @return names of children below the node
+   */
   override def findByNodeName(name: String): Iterable[PrefNode] =
     findByNamedQuery("PreferenceNode.findAllByNodeName", Map("nodeName" -> name))
 

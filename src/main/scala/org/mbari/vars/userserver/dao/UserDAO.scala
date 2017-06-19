@@ -6,10 +6,10 @@ import org.mbari.vars.userserver.model.User
 import vars.knowledgebase.KnowledgebaseDAOFactory
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T10:37:00
-  */
-trait UserDAO  extends DAO {
+ * @author Brian Schlining
+ * @since 2017-06-05T10:37:00
+ */
+trait UserDAO extends DAO {
 
   def create(user: User): Unit
 

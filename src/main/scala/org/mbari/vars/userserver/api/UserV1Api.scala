@@ -1,13 +1,12 @@
 package org.mbari.vars.userserver.api
 
 import org.mbari.vars.userserver.controllers.UserController
-import org.scalatra.{BadRequest, NotFound}
+import org.scalatra.{ BadRequest, NotFound }
 import org.scalatra.swagger.Swagger
 
 import scala.concurrent.ExecutionContext
 
-class UserV1Api(controller: UserController)
-               (implicit val swagger: Swagger, val executor: ExecutionContext)
+class UserV1Api(controller: UserController)(implicit val swagger: Swagger, val executor: ExecutionContext)
     extends ApiStack {
 
   override protected def applicationDescription: String = "User V1 API"
@@ -83,10 +82,10 @@ class UserV1Api(controller: UserController)
     val affiliation = params.get("affiliation")
     val email = params.get("email")
     controller.update(username, role, firstName, lastName, affiliation, email)
-          .map({
-            case None => halt(NotFound(body = "{}", reason = s"Failed to update user named '$username'"))
-            case Some(u) => u
-          })
+      .map({
+        case None => halt(NotFound(body = "{}", reason = s"Failed to update user named '$username'"))
+        case Some(u) => u
+      })
   }
 
 }

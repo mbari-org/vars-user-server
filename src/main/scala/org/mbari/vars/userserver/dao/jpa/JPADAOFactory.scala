@@ -4,14 +4,14 @@ import javax.inject.Inject
 import javax.persistence.EntityManagerFactory
 
 import com.typesafe.config.ConfigFactory
-import org.mbari.vars.userserver.dao.{DAOFactory, PrefNodeDAO, UserDAO}
+import org.mbari.vars.userserver.dao.{ DAOFactory, PrefNodeDAO, UserDAO }
 import vars.MiscDAOFactory
-import vars.jpa.{EntityManagerFactoryAspect, MiscDAOFactoryImpl, MiscFactoryImpl}
+import vars.jpa.{ EntityManagerFactoryAspect, MiscDAOFactoryImpl, MiscFactoryImpl }
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T15:53:00
-  */
+ * @author Brian Schlining
+ * @since 2017-06-05T15:53:00
+ */
 trait JPADAOFactory extends DAOFactory {
 
   def entityManagerFactory: EntityManagerFactory
@@ -20,9 +20,11 @@ trait JPADAOFactory extends DAOFactory {
   private[this] val miscDaoFactory = new MiscDAOFactoryImpl(entityManagerFactory)
 
   override def newUserDAO(): UserDAO =
-    new UserDAOImpl(entityManagerFactory.createEntityManager(),
+    new UserDAOImpl(
+      entityManagerFactory.createEntityManager(),
       miscDaoFactory,
-      miscFactory)
+      miscFactory
+    )
 
   override def newPrefNodeDAO(): PrefNodeDAO =
     new PrefNodeDAOImpl(entityManagerFactory.createEntityManager())

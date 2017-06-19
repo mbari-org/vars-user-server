@@ -1,18 +1,18 @@
 package org.mbari.vars.userserver.api
 
 import org.mbari.vars.userserver.controllers.PrefNodeController
-import org.scalatra.{BadRequest, NotFound}
+import org.scalatra.{ BadRequest, NotFound }
 import org.scalatra.swagger.Swagger
 
 import scala.concurrent.ExecutionContext
 import org.scalatra.json._
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T14:22:00
-  */
+ * @author Brian Schlining
+ * @since 2017-06-05T14:22:00
+ */
 class PrefNodeV1Api(controller: PrefNodeController)(implicit val swagger: Swagger, val executor: ExecutionContext)
-  extends ApiStack {
+    extends ApiStack {
 
   override protected def applicationDescription: String = "PrefNode V1 API"
   override protected val applicationName: Option[String] = Some.apply(getClass.getSimpleName)
@@ -100,7 +100,5 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val swagger: Swagge
     )))
     controller.delete(name, key)
   }
-
-
 
 }

@@ -1,13 +1,13 @@
 package org.mbari.vars.userserver.controllers
 
-import org.mbari.vars.userserver.dao.{DAO, UserDAO}
+import org.mbari.vars.userserver.dao.{ DAO, UserDAO }
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
-  * @author Brian Schlining
-  * @since 2017-06-05T16:00:00
-  */
+ * @author Brian Schlining
+ * @since 2017-06-05T16:00:00
+ */
 trait BaseController[A <: DAO] {
 
   def newDAO(): A

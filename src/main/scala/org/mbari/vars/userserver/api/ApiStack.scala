@@ -1,16 +1,16 @@
 package org.mbari.vars.userserver.api
 
-import java.net.{URI, URL}
-import java.time.{Duration, Instant}
+import java.net.{ URI, URL }
+import java.time.{ Duration, Instant }
 import java.util.UUID
 
 import org.json4s.Formats
 import org.mbari.vars.userserver.json4s
 import org.scalatra.json.JacksonJsonSupport
-import org.scalatra.{ContentEncodingSupport, FutureSupport, ScalatraServlet}
+import org.scalatra.{ ContentEncodingSupport, FutureSupport, ScalatraServlet }
 import org.scalatra.swagger.SwaggerSupport
 import org.scalatra.util.conversion.TypeConverter
-import org.slf4j.{Logger, LoggerFactory}
+import org.slf4j.{ Logger, LoggerFactory }
 
 import scala.util.Try
 

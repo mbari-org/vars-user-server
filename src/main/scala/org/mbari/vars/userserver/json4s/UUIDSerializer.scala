@@ -5,9 +5,9 @@ import java.util.UUID
 import org.json4s._
 
 /**
-  * @author Brian Schlining
-  * @since 2017-03-01T14:29:00
-  */
+ * @author Brian Schlining
+ * @since 2017-03-01T14:29:00
+ */
 case object UUIDSerializer
   extends CustomSerializer[UUID](
     format =>
@@ -17,6 +17,8 @@ case object UUIDSerializer
           case JNull => null
           case JNothing => null
         }, {
-        case x: UUID => JString(x.toString)
-      }))
+          case x: UUID => JString(x.toString)
+        }
+      )
+  )
 
