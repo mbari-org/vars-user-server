@@ -1,13 +1,7 @@
 # vars-user-server
 
-This is a new [Scalatra](http://www.scalatra.org/) microservice project. To add to GitHub:
+![MBARI logo](src/site/resources/images/logo-mbari-3b.png)
 
-```
-git init
-git add -A
-git commit "initial import"
-git remote add origin https://github.com/githubber/vars-user-server
-git push -u origin master
-```
+Microservice that provides CRUD operations for user accounts and user preferences. Used in support of [vars-annotation](https://github.com/mbari-media-management/vars-annotation). Currently, this service shares the database used by [vars-kb](https://github.com/mbari-media-management/vars-kb) and [vars-kb-server](https://github.com/mbari-media-management/vars-kb-server). If needed, an organization could write a simple replacement; e.g. layer a web-service over an internal LDAP service.
 
-This project is built using [SBT](http://www.scala-sbt.org/)
+This service is part of [MBARI's Media Management](https://mbari-media-management.github.io/) project.
