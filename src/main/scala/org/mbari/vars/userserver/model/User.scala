@@ -8,7 +8,7 @@ import vars.jpa.UserAccountImpl
  * @since 2017-06-05T10:41:00
  */
 case class User(
-  username: String,
+    username: String,
     password: String,
     role: String = "ReadOnly",
     affiliation: Option[String] = None,
