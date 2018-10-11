@@ -1,27 +1,30 @@
-val auth0Version = "3.1.0"
-val codecVersion = "1.10"
-val configVersion = "1.3.1"
-val derbyVersion = "10.13.1.1"
+val auth0Version = "3.4.0"
+val codecVersion = "1.11"
+val configVersion = "1.3.3"
+val derbyVersion = "10.14.2.0"
 val gsonJavatimeVersion = "1.1.1"
-val gsonVersion = "2.8.0"
-val hikariVersion = "2.4.5"
+val gsonVersion = "2.8.5"
+val hikariVersion = "3.2.0"
 lazy val jasyptVersion = "1.9.2"
-val jettyVersion = "9.4.4.v20170414"
-lazy val json4sVersion = "3.5.2"
+val jettyVersion = "9.4.12.v20180830"
+lazy val json4sVersion = "3.6.1"
 val jtaVersion = "1.1"
 val junitVersion = "4.12"
-val logbackVersion = "1.1.7"
+val logbackVersion = "1.2.3"
 val scalatestVersion = "3.0.3"
-val scalatraVersion = "2.5.0"
+val scalatraVersion = "2.6.3"
 val servletVersion = "3.1.0"
-val slf4jVersion = "1.7.21"
+val slf4jVersion = "1.7.25"
 val varsVersion = "9.0-SNAPSHOT"
 
 
 lazy val buildSettings = Seq(
   organization := "org.mbari",
-  scalaVersion := "2.12.0",
-  crossScalaVersions := Seq("2.12.0")
+  scalaVersion := "2.12.7",
+  crossScalaVersions := Seq("2.12.7"),
+  organizationName := "Monterey Bay Aquarium Research Institute",
+  startYear := Some(2017),
+  licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
 )
 
 lazy val consoleSettings = Seq(
@@ -53,22 +56,6 @@ lazy val dependencySettings = Seq(
     "hohonuuli-bintray" at "http://dl.bintray.com/hohonuuli/maven")
 )
 
-lazy val gitHeadCommitSha =
-  SettingKey[String]("git-head", "Determines the current git commit SHA")
-
-lazy val makeVersionProperties =
-  TaskKey[Seq[File]]("make-version-props", "Makes a version.properties file")
-
-lazy val makeVersionSettings = Seq(
-  gitHeadCommitSha := scala.util.Try(Process("git rev-parse HEAD").lines.head).getOrElse(""),
-  makeVersionProperties := {
-    val propFile = (resourceManaged in Compile).value / "version.properties"
-    val content = "version=%s" format (gitHeadCommitSha.value)
-    IO.write(propFile, content)
-    Seq(propFile)
-  },
-  resourceGenerators in Compile <+= makeVersionProperties
-)
 
 lazy val optionSettings = Seq(
   scalacOptions ++= Seq(
@@ -86,7 +73,6 @@ lazy val optionSettings = Seq(
     "-Ywarn-value-discard",
     "-Xfuture"),
   javacOptions ++= Seq("-target", "1.8", "-source", "1.8"),
-  incOptions := incOptions.value.withNameHashing(true),
   updateOptions := updateOptions.value.withCachedResolution(true)
 )
 
@@ -97,15 +83,16 @@ addCommandAlias("cleanall", ";clean;clean-files")
 lazy val appSettings = buildSettings ++ consoleSettings ++ dependencySettings ++
     optionSettings
 
-lazy val apps = Seq("jetty-main")
+lazy val apps = Map("jetty-main" -> "JettyMain")  // for sbt-pack
 
 lazy val `vars-user-server` = (project in file("."))
   .enablePlugins(JettyPlugin)
+  .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(PackPlugin)
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
     version := "1.0-SNAPSHOT",
-    todosTags := Set("TODO", "FIXME", "WTF?"),
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,
@@ -128,9 +115,9 @@ lazy val `vars-user-server` = (project in file("."))
         "org.scalatra" %% "scalatra" % scalatraVersion,
         "org.scalatra" %% "scalatra-json" % scalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % scalatraVersion,
-        "org.scalatra" %% "scalatra-slf4j" % scalatraVersion,
-        "org.scalatra" %% "scalatra-swagger" % scalatraVersion,
-        "org.scalatra" %% "scalatra-swagger-ext" % scalatraVersion,
+        //"org.scalatra" %% "scalatra-slf4j" % scalatraVersion,
+        //"org.scalatra" %% "scalatra-swagger" % scalatraVersion,
+        //"org.scalatra" %% "scalatra-swagger-ext" % scalatraVersion,
         "org.scalatra" %% "scalatra-scalatest" % scalatraVersion)
           .map(_.excludeAll(ExclusionRule("org.slf4j", "slf4j-jdk14"),
             ExclusionRule("org.slf4j", "slf4j-log4j12"),
@@ -138,12 +125,11 @@ lazy val `vars-user-server` = (project in file("."))
     mainClass in assembly := Some("JettyMain")
   )
   .settings( // config sbt-pack
-    packAutoSettings ++ Seq(
-      packExtraClasspath := apps.map(_ -> Seq("${PROG_HOME}/conf")).toMap,
-      packJvmOpts := apps.map(_ -> Seq("-Duser.timezone=UTC", "-Xmx4g")).toMap,
-      packDuplicateJarStrategy := "latest",
-      packJarNameConvention := "original"
-    )
+    packMain := apps,
+    packExtraClasspath := apps.keys.map(k => k -> Seq("${PROG_HOME}/conf")).toMap,
+    packJvmOpts := apps.keys.map(k => k -> Seq("-Duser.timezone=UTC", "-Xmx4g")).toMap,
+    packDuplicateJarStrategy := "latest",
+    packJarNameConvention := "original"
   )
 
 

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 Monterey Bay Aquarium Research Institute
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.mbari.vars.userserver.api
 
 import java.net.{ URI, URL }
@@ -8,7 +24,6 @@ import org.json4s.Formats
 import org.mbari.vars.userserver.json4s
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.{ ContentEncodingSupport, FutureSupport, ScalatraServlet }
-import org.scalatra.swagger.SwaggerSupport
 import org.scalatra.util.conversion.TypeConverter
 import org.slf4j.{ Logger, LoggerFactory }
 
@@ -25,7 +40,6 @@ abstract class ApiStack extends ScalatraServlet
     with ApiAuthenticationSupport
     with JacksonJsonSupport
     with ContentEncodingSupport
-    with SwaggerSupport
     with FutureSupport {
 
   protected[this] val log: Logger = LoggerFactory.getLogger(getClass)
