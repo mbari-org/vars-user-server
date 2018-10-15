@@ -15,7 +15,7 @@ val scalatestVersion = "3.0.3"
 val scalatraVersion = "2.6.3"
 val servletVersion = "3.1.0"
 val slf4jVersion = "1.7.25"
-val varsVersion = "9.0-SNAPSHOT"
+val varsVersion = "11.0.2"
 
 
 lazy val buildSettings = Seq(
@@ -92,7 +92,7 @@ lazy val `vars-user-server` = (project in file("."))
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "1.0-SNAPSHOT",
+    version := "0.1.2",
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,

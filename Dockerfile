@@ -1,6 +1,6 @@
-FROM openjdk:8-jre
+FROM openjdk:11
 
-MAINTAINER Brian Schlining <bschlining@gmail.com>
+LABEL Author="Brian Schlining <bschlining@gmail.com>"
 
 ENV APP_HOME /opt/vars-user-server
 
