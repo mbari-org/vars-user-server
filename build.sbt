@@ -1,4 +1,4 @@
-val auth0Version = "3.4.0"
+val auth0Version = "3.4.1"
 val codecVersion = "1.11"
 val configVersion = "1.3.3"
 val derbyVersion = "10.14.2.0"
@@ -6,13 +6,13 @@ val gsonJavatimeVersion = "1.1.1"
 val gsonVersion = "2.8.5"
 val hikariVersion = "3.2.0"
 lazy val jasyptVersion = "1.9.2"
-val jettyVersion = "9.4.12.v20180830"
-lazy val json4sVersion = "3.6.1"
+val jettyVersion = "9.4.14.v20181114"
+lazy val json4sVersion = "3.6.2"
 val jtaVersion = "1.1"
 val junitVersion = "4.12"
 val logbackVersion = "1.2.3"
-val scalatestVersion = "3.0.3"
-val scalatraVersion = "2.6.3"
+val scalatestVersion = "3.0.5"
+val scalatraVersion = "2.6.4"
 val servletVersion = "3.1.0"
 val slf4jVersion = "1.7.25"
 val varsVersion = "11.0.2"
@@ -92,7 +92,7 @@ lazy val `vars-user-server` = (project in file("."))
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "0.1.2",
+    version := "0.1.3",
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,
