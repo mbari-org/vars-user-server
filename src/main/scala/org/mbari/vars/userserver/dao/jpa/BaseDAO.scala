@@ -27,7 +27,7 @@ import scala.concurrent.{ ExecutionContext, Future }
  * @since 2017-06-05T16:08:00
  */
 class BaseDAO(val entityManager: EntityManager) extends DAO {
-  override def runTransaction[R](fn: (this.type) => R)(
+  override def runTransaction[R](fn: this.type => R)(
     implicit
     ec: ExecutionContext
   ): Future[R] = {

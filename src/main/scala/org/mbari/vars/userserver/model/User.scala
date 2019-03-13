@@ -17,7 +17,6 @@
 package org.mbari.vars.userserver.model
 
 import vars.UserAccount
-import vars.jpa.UserAccountImpl
 
 /**
  * @author Brian Schlining

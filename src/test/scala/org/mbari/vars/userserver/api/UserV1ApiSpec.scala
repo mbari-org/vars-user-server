@@ -27,7 +27,7 @@ import org.mbari.vars.userserver.model.{PrefNode, User}
 class UserV1ApiSpec extends WebApiStack {
 
   private[this] val api = new UserV1Api(new UserController(daoFactory))
-  private[this] val user = User("foo", "bar", "ReadOnly", Some("MBARI"), Some("Brian"),
+  private[this] val user = User("foo", "bar", "Admin", Some("MBARI"), Some("Brian"),
     Some("Schlining"), Some("brian@mbari.org"), isEncrypted = false)
 
   addServlet(api, "/v1/users")
