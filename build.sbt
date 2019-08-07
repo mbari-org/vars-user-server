@@ -15,6 +15,7 @@ val scalatestVersion = "3.0.8"
 val scalatraVersion = "2.6.5"
 val servletVersion = "3.1.0"
 val slf4jVersion = "1.7.27"
+val sqlserverVersion = "7.4.1.jre11"
 val varsVersion = "11.0.3"
 
 
@@ -98,6 +99,7 @@ lazy val `vars-user-server` = (project in file("."))
         "com.auth0" % "java-jwt" % auth0Version,
         "com.fatboyindustrial.gson-javatime-serialisers" % "gson-javatime-serialisers" % gsonJavatimeVersion,
         "com.google.code.gson" % "gson" % gsonVersion,
+        "com.microsoft.sqlserver" % "mssql-jdbc" % sqlserverVersion,
         "com.zaxxer" % "HikariCP" % hikariVersion,
         "commons-codec" % "commons-codec" % codecVersion,
         "javax.servlet" % "javax.servlet-api" % servletVersion,
