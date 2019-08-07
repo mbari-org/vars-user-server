@@ -1,27 +1,27 @@
-val auth0Version = "3.7.0"
-val codecVersion = "1.12"
-val configVersion = "1.3.3"
+val auth0Version = "3.8.1"
+val codecVersion = "1.13"
+val configVersion = "1.3.4"
 val derbyVersion = "10.15.1.3"
 val gsonJavatimeVersion = "1.1.1"
 val gsonVersion = "2.8.5"
 val hikariVersion = "3.3.1"
-val jasyptVersion = "1.9.2"
-val jettyVersion = "9.4.15.v20190215"
-val json4sVersion = "3.6.5"
+val jasyptVersion = "1.9.3"
+val jettyVersion = "9.4.19.v20190610"
+val json4sVersion = "3.6.7"
 val jtaVersion = "1.1"
 val junitVersion = "4.12"
 val logbackVersion = "1.2.3"
-val scalatestVersion = "3.0.6"
+val scalatestVersion = "3.0.8"
 val scalatraVersion = "2.6.5"
 val servletVersion = "3.1.0"
-val slf4jVersion = "1.7.26"
+val slf4jVersion = "1.7.27"
 val varsVersion = "11.0.3"
 
 
 lazy val buildSettings = Seq(
   organization := "org.mbari",
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.12.8"),
+  scalaVersion := "2.12.9",
+  crossScalaVersions := Seq("2.12.9"),
   organizationName := "Monterey Bay Aquarium Research Institute",
   startYear := Some(2017),
   licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
@@ -92,7 +92,7 @@ lazy val `vars-user-server` = (project in file("."))
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "0.1.4",
+    version := "0.2.0",
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,
@@ -123,8 +123,7 @@ lazy val `vars-user-server` = (project in file("."))
         "org.scalatra" %% "scalatra-scalatest" % scalatraVersion)
           .map(_.excludeAll(ExclusionRule("org.slf4j", "slf4j-jdk14"),
             ExclusionRule("org.slf4j", "slf4j-log4j12"),
-            ExclusionRule("javax.servlet", "servlet-api"))),
-    mainClass in assembly := Some("JettyMain")
+            ExclusionRule("javax.servlet", "servlet-api")))
   )
   .settings( // config sbt-pack
     packMain := apps,
