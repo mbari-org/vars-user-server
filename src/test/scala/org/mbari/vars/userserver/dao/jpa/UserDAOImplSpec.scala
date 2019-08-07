@@ -35,14 +35,17 @@ class UserDAOImplSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
   private[this] val daoFactory = Constants.DAOFactory
   private[this] val timeout = SDuration(2, TimeUnit.SECONDS)
-  private[this] val dao = daoFactory.newUserDAO()
   private[this] val users = Seq(User("brian", "foo", "Admin", Some("MBARI"), Some("Brian"),
     Some("Schlining"), Some("brian@mbari.org"), isEncrypted = false),
     User("schlin", "bar", "Maint", isEncrypted = false),
-    User("funkychicke", "baz", "ReadOnly", isEncrypted = false))
+    User("funkychicke", "baz", "Precious", isEncrypted = false))
 
-  def run[R](fn: UserDAO => R): R = Await.result(dao.runTransaction(fn), timeout)
-
+  def run[R](fn: UserDAO => R): R = {
+    val dao = daoFactory.newUserDAO()
+    val r = Await.result(dao.runTransaction(fn), timeout)
+    dao.close()
+    r
+  }
 
   "UserDAOImpl" should "create" in {
     users.foreach(u => run(_.create(u)))
@@ -98,11 +101,18 @@ class UserDAOImplSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
     opt3 should be (opt2)
   }
 
-  override protected def afterAll(): Unit = {
-    dao.runTransaction(d => {
-      val users = d.findAll()
-      users.foreach(u => d.delete(u))
-    })
-    dao.close()
+
+
+  it should "delete all" in {
+    def fn(dao: UserDAO): Unit = {
+      val ux = dao.findAll()
+      ux.foreach(dao.delete)
+    }
+    run(fn)
+
+    val leftOvers = run(_.findAll())
+    leftOvers.size should be (0)
+
   }
+
 }
