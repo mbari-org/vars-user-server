@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
+
+    <variable name="LOGBACK_LEVEL" value="${LOGBACK_LEVEL:-WARN}" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -15,8 +17,8 @@
     <logger name="org.fusesource.scalate" level="WARN" />
     <logger name="httpclient.wire.header" level="WARN" />
 
-    <root level="WARN">
-        <appender-ref ref="CONSOLE"/>
+    <root level="${LOGBACK_LEVEL}">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>

@@ -1,28 +1,30 @@
-val auth0Version = "3.8.1"
+val auth0Version = "3.8.2"
 val codecVersion = "1.13"
 val configVersion = "1.3.4"
 val derbyVersion = "10.15.1.3"
 val gsonJavatimeVersion = "1.1.1"
 val gsonVersion = "2.8.5"
-val hikariVersion = "3.3.1"
+val hikariVersion = "3.4.1"
 val jasyptVersion = "1.9.3"
-val jettyVersion = "9.4.19.v20190610"
+val javamelodyVersion = "1.79.0"
+val jettyVersion = "9.4.20.v20190813"
 val json4sVersion = "3.6.7"
 val jtaVersion = "1.1"
 val junitVersion = "4.12"
 val logbackVersion = "1.2.3"
+val oracleVersion = "19.3.0.0"
 val scalatestVersion = "3.0.8"
 val scalatraVersion = "2.6.5"
 val servletVersion = "3.1.0"
-val slf4jVersion = "1.7.27"
+val slf4jVersion = "1.7.28"
 val sqlserverVersion = "7.4.1.jre11"
 val varsVersion = "11.0.3"
 
 
 lazy val buildSettings = Seq(
   organization := "org.mbari",
-  scalaVersion := "2.12.9",
-  crossScalaVersions := Seq("2.12.9"),
+  scalaVersion := "2.12.10",
+  crossScalaVersions := Seq("2.12.10"),
   organizationName := "Monterey Bay Aquarium Research Institute",
   startYear := Some(2017),
   licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
@@ -100,10 +102,12 @@ lazy val `vars-user-server` = (project in file("."))
         "com.fatboyindustrial.gson-javatime-serialisers" % "gson-javatime-serialisers" % gsonJavatimeVersion,
         "com.google.code.gson" % "gson" % gsonVersion,
         "com.microsoft.sqlserver" % "mssql-jdbc" % sqlserverVersion,
+        "com.oracle.ojdbc" % "ojdbc8" % oracleVersion,
         "com.zaxxer" % "HikariCP" % hikariVersion,
         "commons-codec" % "commons-codec" % codecVersion,
         "javax.servlet" % "javax.servlet-api" % servletVersion,
         "javax.transaction" % "jta" % jtaVersion,
+        "net.bull.javamelody" % "javamelody-core" % javamelodyVersion,
         "org.apache.derby" % "derby" % derbyVersion, //          % "test",
         "org.apache.derby" % "derbyclient" % derbyVersion, //          % "test",
         "org.apache.derby" % "derbynet" % derbyVersion, //
