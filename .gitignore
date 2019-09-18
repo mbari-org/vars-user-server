@@ -11,6 +11,8 @@
 # Maven Build Directory #
 target/
 .idea/
+.bloop/
+.metals/
 
 # Maven version plugin junk
 *.versionsBackup
