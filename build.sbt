@@ -1,13 +1,13 @@
-val auth0Version = "3.8.2"
+val auth0Version = "3.8.3"
 val codecVersion = "1.13"
-val configVersion = "1.3.4"
+val configVersion = "1.4.0"
 val derbyVersion = "10.15.1.3"
 val gsonJavatimeVersion = "1.1.1"
-val gsonVersion = "2.8.5"
+val gsonVersion = "2.8.6"
 val hikariVersion = "3.4.1"
 val jasyptVersion = "1.9.3"
-val javamelodyVersion = "1.79.0"
-val jettyVersion = "9.4.20.v20190813"
+val javamelodyVersion = "1.80.0"
+val jettyVersion = "9.4.22.v20191022"
 val json4sVersion = "3.6.7"
 val jtaVersion = "1.1"
 val junitVersion = "4.12"
@@ -16,7 +16,7 @@ val oracleVersion = "19.3.0.0"
 val scalatestVersion = "3.0.8"
 val scalatraVersion = "2.6.5"
 val servletVersion = "3.1.0"
-val slf4jVersion = "1.7.28"
+val slf4jVersion = "1.7.29"
 val sqlserverVersion = "7.4.1.jre11"
 val varsVersion = "11.0.3"
 
@@ -56,7 +56,7 @@ lazy val dependencySettings = Seq(
   resolvers ++= Seq(
     Resolver.mavenLocal,
     Resolver.sonatypeRepo("releases"),
-    "hohonuuli-bintray" at "http://dl.bintray.com/hohonuuli/maven")
+    "hohonuuli-bintray" at "https://dl.bintray.com/hohonuuli/maven")
 )
 
 
@@ -95,7 +95,7 @@ lazy val `vars-user-server` = (project in file("."))
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "0.2.3",
+    version := "0.2.4",
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,

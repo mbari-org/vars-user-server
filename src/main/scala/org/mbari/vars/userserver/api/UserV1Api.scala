@@ -69,8 +69,8 @@ class UserV1Api(controller: UserController)(implicit  val executor: ExecutionCon
     val role = params.get("role").getOrElse(halt(BadRequest(
       body = """{"error": "A 'role' parameter is required"}""",
     )))
-    val firstName = params.get("firstName")
-    val lastName = params.get("lastName")
+    val firstName = params.get("firstName").orElse(params.get("first_name"))
+    val lastName = params.get("lastName").orElse(params.get("last_name"))
     val affiliation = params.get("affiliation")
     val email = params.get("email")
     controller.create(username, password, role, firstName, lastName, affiliation, email)
@@ -82,8 +82,8 @@ class UserV1Api(controller: UserController)(implicit  val executor: ExecutionCon
       body = """{"error": "A 'username' parameter is required"}""",
     )))
     val role = params.get("role")
-    val firstName = params.get("firstName")
-    val lastName = params.get("lastName")
+    val firstName = params.get("firstName").orElse(params.get("first_name"))
+    val lastName = params.get("lastName").orElse(params.get("last_name"))
     val affiliation = params.get("affiliation")
     val email = params.get("email")
     controller.update(username, role, firstName, lastName, affiliation, email)
