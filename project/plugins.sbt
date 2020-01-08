@@ -20,6 +20,6 @@ addSbtPlugin("com.earldouglas" % "xsbt-web-plugin" % "4.0.2")
 // addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.6")
 
 // https://github.com/sbt/sbt-header
-addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.2.0")
+addSbtPlugin("de.heikoseeberger" % "sbt-header" % "5.4.0")
 
 resolvers += Resolver.sonatypeRepo("releases")
