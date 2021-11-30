@@ -97,7 +97,7 @@ lazy val `vars-user-server` = (project in file("."))
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "0.2.5",
+    version := "0.2.6",
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,
