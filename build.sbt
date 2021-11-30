@@ -1,30 +1,32 @@
-val auth0Version = "3.9.0"
-val codecVersion = "1.14"
-val configVersion = "1.4.0"
-val derbyVersion = "10.15.1.3"
+val auth0Version = "3.18.2"
+val circeVersion      = "0.14.1"
+val codecVersion = "1.15"
+val configVersion = "1.4.1"
+val derbyVersion = "10.15.2.0"
 val gsonJavatimeVersion = "1.1.1"
-val gsonVersion = "2.8.6"
-val hikariVersion = "3.4.1"
+val gsonVersion = "2.8.9"
+val hikariVersion = "3.4.5"
 val jasyptVersion = "1.9.3"
 val javamelodyVersion = "1.81.0"
-val jettyVersion = "9.4.25.v20191220"
-val json4sVersion = "3.6.7"
+val jettyVersion = "9.4.44.v20210927"
+val json4sVersion = "4.0.3"
 val jtaVersion = "1.1"
-val junitVersion = "4.13"
-val logbackVersion = "1.2.3"
+val junitVersion = "4.13.2"
+val logbackVersion = "1.3.0-alpha10"
 val oracleVersion = "19.3.0.0"
-val scalatestVersion = "3.0.8"
-val scalatraVersion = "2.6.5"
+val scalatestVersion = "3.2.10"
+val scalatraVersion = "2.8.2"
 val servletVersion = "3.1.0"
-val slf4jVersion = "1.7.30"
-val sqlserverVersion = "7.4.1.jre11"
-val varsVersion = "11.0.3"
+val slf4jVersion = "2.0.0-alpha5"
+val sqlserverVersion = "9.4.0.jre11"
+val varskbVersion = "11.0.12"
 
+Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val buildSettings = Seq(
   organization := "org.mbari",
-  scalaVersion := "2.12.10",
-  crossScalaVersions := Seq("2.12.10"),
+  scalaVersion := "2.13.7",
+  crossScalaVersions := Seq("2.13.7"),
   organizationName := "Monterey Bay Aquarium Research Institute",
   startYear := Some(2017),
   licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
@@ -56,7 +58,8 @@ lazy val dependencySettings = Seq(
   resolvers ++= Seq(
     Resolver.mavenLocal,
     Resolver.sonatypeRepo("releases"),
-    "hohonuuli-bintray" at "https://dl.bintray.com/hohonuuli/maven")
+    Resolver.githubPackages("mbari-org")
+  )
 )
 
 
@@ -72,10 +75,9 @@ lazy val optionSettings = Seq(
     "-unchecked",
     //"-Xfatal-warnings",
     "-Xlint",
-    "-Yno-adapted-args",
-    "-Ywarn-value-discard",
-    "-Xfuture"),
-  javacOptions ++= Seq("-target", "1.8", "-source", "1.8"),
+    "-Xlint:-byname-implicit",
+    "-Ywarn-value-discard"),
+  javacOptions ++= Seq("-target", "17", "-source", "17"),
   updateOptions := updateOptions.value.withCachedResolution(true)
 )
 
@@ -105,6 +107,9 @@ lazy val `vars-user-server` = (project in file("."))
         "com.oracle.ojdbc" % "ojdbc8" % oracleVersion,
         "com.zaxxer" % "HikariCP" % hikariVersion,
         "commons-codec" % "commons-codec" % codecVersion,
+        "io.circe"                                       %% "circe-core"               % circeVersion,
+        "io.circe"                                       %% "circe-generic"            % circeVersion,
+        "io.circe"                                       %% "circe-parser"             % circeVersion,
         "javax.servlet" % "javax.servlet-api" % servletVersion,
         "javax.transaction" % "jta" % jtaVersion,
         "net.bull.javamelody" % "javamelody-core" % javamelodyVersion,
@@ -118,7 +123,7 @@ lazy val `vars-user-server` = (project in file("."))
         "org.eclipse.jetty" % "jetty-webapp" % jettyVersion % "compile;test",
         "org.jasypt" % "jasypt" % jasyptVersion,
         "org.json4s" %% "json4s-jackson" % json4sVersion,
-        "org.mbari.vars" % "vars-jpa" % varsVersion,
+        "org.mbari.vars"               % "org.mbari.kb.jpa"          % varskbVersion,
         "org.scalatest" %% "scalatest" % scalatestVersion % "test",
         "org.scalatra" %% "scalatra" % scalatraVersion,
         "org.scalatra" %% "scalatra-json" % scalatraVersion,

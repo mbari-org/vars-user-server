@@ -21,6 +21,7 @@ import org.eclipse.jetty.server._
 import org.eclipse.jetty.servlet.FilterHolder
 import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.servlet.ScalatraListener
+import org.slf4j.LoggerFactory
 
 object JettyMain {
 
@@ -35,8 +36,18 @@ object JettyMain {
 
   def main(args: Array[String]) = {
     System.setProperty("user.timezone", "UTC")
+    val s = """
+    | __   ____ _ _ __ ___       _   _ ___  ___ _ __      ___  ___ _ ____   _____ _ __ 
+    | \ \ / / _` | '__/ __|_____| | | / __|/ _ \ '__|____/ __|/ _ \ '__\ \ / / _ \ '__|
+    |  \ V / (_| | |  \__ \_____| |_| \__ \  __/ | |_____\__ \  __/ |   \ V /  __/ |   
+    |   \_/ \__,_|_|  |___/      \__,_|___/\___|_|       |___/\___|_|    \_/ \___|_| """.stripMargin
+    println(s)
+
     val server: Server = new Server
-    println("starting jetty")
+    LoggerFactory
+      .getLogger(getClass)
+      .atInfo
+      .log("Starting Jetty server on port {}", conf.port)
 
     server setStopTimeout conf.stopTimeout
     //server setDumpAfterStart true
@@ -48,11 +59,10 @@ object JettyMain {
 
     val connector = new NetworkTrafficServerConnector(server, new HttpConnectionFactory(httpConfig))
     connector setPort conf.port
-    connector setSoLingerTime 0
     connector setIdleTimeout conf.connectorIdleTimeout
     server addConnector connector
 
-    val webapp = conf.webapp
+
     val webApp = new WebAppContext
     webApp setContextPath conf.contextPath
     webApp setResourceBase conf.webapp

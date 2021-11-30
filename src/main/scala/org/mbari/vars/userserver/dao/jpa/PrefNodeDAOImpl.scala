@@ -16,22 +16,21 @@
 
 package org.mbari.vars.userserver.dao.jpa
 
-import javax.inject.Inject
 import javax.persistence.EntityManager
 
 import org.mbari.vars.userserver.dao.PrefNodeDAO
 import org.mbari.vars.userserver.model.PrefNode
 
-import scala.collection.JavaConverters._
-import vars.jpa.PreferenceNode
+import scala.jdk.CollectionConverters._
 
 import scala.util.Try
+import org.mbari.kb.jpa.PreferenceNode
 
 /**
  * @author Brian Schlining
  * @since 2017-06-05T11:12:00
  */
-class PrefNodeDAOImpl @Inject() (entityManager: EntityManager)
+class PrefNodeDAOImpl (entityManager: EntityManager)
     extends BaseDAO(entityManager) with PrefNodeDAO {
 
   override def create(prefNode: PrefNode): Unit =

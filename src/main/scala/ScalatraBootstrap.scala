@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 import javax.servlet.ServletContext
 
 import org.mbari.vars.userserver.Constants
-import org.mbari.vars.userserver.api.{ AuthorizationV1Api, PrefNodeV1Api, UserV1Api }
+import org.mbari.vars.userserver.api.{ AuthorizationV1Api, HealthApi, PrefNodeV1Api, UserV1Api }
 import org.mbari.vars.userserver.controllers.{ PrefNodeController, UserController }
 import org.mbari.vars.userserver.dao.DAOFactory
 import org.scalatra.LifeCycle
@@ -39,7 +39,7 @@ class ScalatraBootstrap extends LifeCycle {
 
   override def init(context: ServletContext): Unit = {
 
-    println("STARTING UP NOW")
+    log.info("Mounting servlets")
 
     implicit val ec = ExecutionContext.fromExecutor(Executors.newFixedThreadPool(Runtime.getRuntime.availableProcessors()))
 
@@ -54,6 +54,7 @@ class ScalatraBootstrap extends LifeCycle {
     context.mount(prefNodeApi, "/v1/prefs")
     context.mount(userApi, "/v1/users")
     context.mount(authApi, "/v1/auth")
+    context.mount(new HealthApi, "/v1/health")
 
   }
 

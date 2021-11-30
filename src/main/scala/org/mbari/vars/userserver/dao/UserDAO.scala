@@ -16,10 +16,9 @@
 
 package org.mbari.vars.userserver.dao
 
-import javax.inject.Inject
 
 import org.mbari.vars.userserver.model.User
-import vars.knowledgebase.KnowledgebaseDAOFactory
+
 
 /**
  * @author Brian Schlining

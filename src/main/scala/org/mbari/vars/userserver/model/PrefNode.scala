@@ -16,7 +16,9 @@
 
 package org.mbari.vars.userserver.model
 
-import vars.jpa.PreferenceNode
+import org.mbari.kb.jpa.PreferenceNode
+
+
 
 /**
  * @author Brian Schlining

@@ -21,17 +21,20 @@ import java.util.concurrent.TimeUnit
 import org.mbari.vars.userserver.Constants
 import org.mbari.vars.userserver.dao.PrefNodeDAO
 import org.mbari.vars.userserver.model.PrefNode
-import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration.{Duration => SDuration}
 import scala.concurrent.ExecutionContext.Implicits.global
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.BeforeAndAfterAll
 
 /**
   * @author Brian Schlining
   * @since 2017-06-16T09:55:00
   */
-class PrefNodeDAOImplSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
+class PrefNodeDAOImplSpec extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
 
   private[this] val daoFactory = Constants.DAOFactory
   private[this] val timeout = SDuration(2, TimeUnit.SECONDS)

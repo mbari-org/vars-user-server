@@ -16,7 +16,9 @@
 
 package org.mbari.vars.userserver.model
 
-import vars.UserAccount
+import org.mbari.kb.core.UserAccount
+
+
 
 /**
  * @author Brian Schlining

@@ -16,8 +16,9 @@
 
 package org.mbari.vars.userserver
 
-import com.google.inject.{ Guice, Injector }
+import org.mbari.kb.jpa.knowledgebase.Factories
 import org.mbari.vars.userserver.dao.DAOFactory
+import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
 
 /**
  * @author Brian Schlining
@@ -25,7 +26,11 @@ import org.mbari.vars.userserver.dao.DAOFactory
  */
 object Constants {
 
-  val Injector: Injector = Guice.createInjector(new InjectorModule)
+  val DAOFactory: DAOFactory = {
+    val factories = Factories.build()
+    val miscDAOFactory = factories.getMiscDAOFactory
+    new JPADAOFactoryImpl(miscDAOFactory)
+  }
 
-  val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
 }

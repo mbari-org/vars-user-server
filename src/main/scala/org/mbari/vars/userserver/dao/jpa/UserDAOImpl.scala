@@ -16,20 +16,20 @@
 
 package org.mbari.vars.userserver.dao.jpa
 
-import javax.inject.Inject
 import javax.persistence.EntityManager
 
 import org.mbari.vars.userserver.dao.UserDAO
 import org.mbari.vars.userserver.model.User
 
-import scala.collection.JavaConverters._
-import vars.{ MiscDAOFactory, MiscFactory }
+import scala.jdk.CollectionConverters._
+import org.mbari.kb.core.MiscDAOFactory
+import org.mbari.kb.core.MiscFactory
 
 /**
  * @author Brian Schlining
  * @since 2017-06-05T10:38:00
  */
-class UserDAOImpl @Inject() (
+class UserDAOImpl (
   entityManager: EntityManager,
   miscDAOFactory: MiscDAOFactory,
   miscFactory: MiscFactory

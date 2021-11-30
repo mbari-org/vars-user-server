@@ -26,7 +26,7 @@ class UserV1Api(controller: UserController)(implicit  val executor: ExecutionCon
 
   before() {
     contentType = "application/json"
-    response.headers += ("Access-Control-Allow-Origin" -> "*")
+    response.headers.set("Access-Control-Allow-Origin", "*")
   }
 
   get("/") {

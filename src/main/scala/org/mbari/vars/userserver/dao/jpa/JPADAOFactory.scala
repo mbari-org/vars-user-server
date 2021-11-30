@@ -16,13 +16,16 @@
 
 package org.mbari.vars.userserver.dao.jpa
 
-import javax.inject.Inject
+
 import javax.persistence.EntityManagerFactory
 
-import com.typesafe.config.ConfigFactory
+
 import org.mbari.vars.userserver.dao.{ DAOFactory, PrefNodeDAO, UserDAO }
-import vars.MiscDAOFactory
-import vars.jpa.{ EntityManagerFactoryAspect, MiscDAOFactoryImpl, MiscFactoryImpl }
+import org.mbari.kb.jpa.MiscFactoryImpl
+import org.mbari.kb.jpa.MiscDAOFactoryImpl
+import org.mbari.kb.core.MiscDAOFactory
+import org.mbari.kb.jpa.EntityManagerFactoryAspect
+
 
 /**
  * @author Brian Schlining
@@ -46,7 +49,7 @@ trait JPADAOFactory extends DAOFactory {
     new PrefNodeDAOImpl(entityManagerFactory.createEntityManager())
 }
 
-class JPADAOFactoryImpl @Inject() (miscDAOFactory: MiscDAOFactory) extends JPADAOFactory {
+class JPADAOFactoryImpl (miscDAOFactory: MiscDAOFactory) extends JPADAOFactory {
 
   // HACK - This is hardcoded to VARS JPA implementation details.
   val entityManagerFactory: EntityManagerFactory =
