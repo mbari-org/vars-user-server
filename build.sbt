@@ -5,6 +5,7 @@ val configVersion = "1.4.1"
 val derbyVersion = "10.15.2.0"
 val gsonJavatimeVersion = "1.1.1"
 val gsonVersion = "2.8.9"
+lazy val httpcomponentsVersion = "4.5.13" // override 4.5.6 in scalatratest. It's broken
 val hikariVersion = "3.4.5"
 val jasyptVersion = "1.9.3"
 val javamelodyVersion = "1.81.0"
@@ -97,7 +98,7 @@ lazy val `vars-user-server` = (project in file("."))
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "0.2.6",
+    version := "0.2.7",
     fork := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,
@@ -118,6 +119,8 @@ lazy val `vars-user-server` = (project in file("."))
         "org.apache.derby" % "derbynet" % derbyVersion, //
         "org.apache.derby" % "derbytools" % derbyVersion, //
         "org.apache.derby" % "derbyshared" % derbyVersion, //
+        "org.apache.httpcomponents" % "httpcomponents-client"                % httpcomponentsVersion % Test,
+        "org.apache.httpcomponents" % "httpmime"                  % httpcomponentsVersion % Test,
         "org.eclipse.jetty" % "jetty-server" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-servlets" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-webapp" % jettyVersion % "compile;test",
