@@ -33,26 +33,43 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val executor: Execu
     response.headers.set("Access-Control-Allow-Origin", "*")
   }
 
-  get("/:name") {
+  get("/") {
     val name = params.get("name").getOrElse(halt(BadRequest(
       body = """{"error": "A 'name' parameter is required"}""",
     )))
-    controller.findByNodeName(name)
+    val key = params.get("key")
+    key match {
+      case Some(k) =>
+        controller.findByNodeNameAndKey(name, k)
+          .map({
+            case None => halt(NotFound(body = s"""{"error": "Did nor find pref with name: '$name and key '$key'"}"""))
+            case Some(p) => p
+          })
+      case None =>
+        controller.findByNodeName(name)
+    }
   }
 
-  get("/:name/:key") {
-    val name = params.get("name").getOrElse(halt(BadRequest(
-      body = """{"error": "A 'name' parameter is required"}""",
-    )))
-    val key = params.get("key").getOrElse(halt(BadRequest(
-      body = """{"error": "A 'key' parameter is required"}""",
-    )))
-    controller.findByNodeNameAndKey(name, key)
-      .map({
-        case None => halt(NotFound(body = s"""{"error": "Did nor find pref with name: '$name and key '$key'"}"""))
-        case Some(p) => p
-      })
-  }
+  // get("/*") {
+  //   val name = params.get("splat").getOrElse(halt(BadRequest(
+  //     body = """{"error": "A 'name' parameter is required"}""",
+  //   )))
+  //   controller.findByNodeName(name)
+  // }
+
+  // get("/:name/:key") {
+  //   val name = params.get("name").getOrElse(halt(BadRequest(
+  //     body = """{"error": "A 'name' parameter is required"}""",
+  //   )))
+  //   val key = params.get("key").getOrElse(halt(BadRequest(
+  //     body = """{"error": "A 'key' parameter is required"}""",
+  //   )))
+  //   controller.findByNodeNameAndKey(name, key)
+  //     .map({
+  //       case None => halt(NotFound(body = s"""{"error": "Did nor find pref with name: '$name and key '$key'"}"""))
+  //       case Some(p) => p
+  //     })
+  // }
 
   // get("/startswith/:name") {
   //   val name = params.get("name").getOrElse(halt(BadRequest(
@@ -62,10 +79,12 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val executor: Execu
   // }
 
   get("/startswith/*") {
-    val name = params.get("splat").getOrElse(halt(BadRequest(
-      body = """{"error": "A 'name' parameter is required"}""",
-    )))
-    controller.findByNodeNameLike(name)
+    val prefix = params.get("splat")
+      .orElse(params.get("prefix"))
+      .getOrElse(halt(BadRequest(
+        body = """{"error": "A 'name' parameter is required"}""",
+      )))
+    controller.findByNodeNameLike(prefix)
   }
 
   post("/") {
@@ -82,7 +101,7 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val executor: Execu
     controller.create(name, key, value)
   }
 
-  put("/:name/:key") {
+  put("/") {
     validateRequest()
     val name = params.get("name").getOrElse(halt(BadRequest(
       body = """{"error": "A 'name' parameter is required"}""",
@@ -96,7 +115,7 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val executor: Execu
     controller.update(name, key, value)
   }
 
-  delete("/:name/:key") {
+  delete("/") {
     validateRequest()
     val name = params.get("name").getOrElse(halt(BadRequest(
       body = """{"error": "A 'name' parameter is required"}""",
