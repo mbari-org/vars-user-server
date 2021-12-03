@@ -48,7 +48,7 @@ class PrefNodeV1ApiSpec extends WebApiStack {
   }
 
   it should "GET by name" in {
-    get(s"/v1/prefs/${node.name}") {
+    get(s"/v1/prefs?name=${node.name}") {
       status should be (200)
       val json = parse(body)
       val prefs = json.extract[Array[PrefNode]]
@@ -61,7 +61,7 @@ class PrefNodeV1ApiSpec extends WebApiStack {
   }
 
   it should "GET by name and key" in {
-    get(s"/v1/prefs/${node.name}/${node.key}") {
+    get(s"/v1/prefs?name=${node.name}&key=${node.key}") {
       status should be (200)
       val json = parse(body)
       val pref = json.extract[PrefNode]
@@ -84,8 +84,21 @@ class PrefNodeV1ApiSpec extends WebApiStack {
     }
   }
 
+  it should "GET by name that starts with using `prefix` query param" in {
+    get(s"/v1/prefs/startswith/?prefix=${node.name.charAt(0)}") {
+      status should be (200)
+      val json = parse(body)
+      val prefs = json.extract[Array[PrefNode]]
+      prefs.size should be (1)
+      val pref = prefs.head
+      pref.name should be (node.name)
+      pref.key should be (node.key)
+      pref.value should be (node.value)
+    }
+  }
+
   it should "PUT" in {
-    put(s"/v1/prefs/${node.name}/${node.key}",
+    put(s"/v1/prefs?name=${node.name}&key=${node.key}",
       "value" -> "crab") {
       status should be (200)
       val json = parse(body)
@@ -97,7 +110,7 @@ class PrefNodeV1ApiSpec extends WebApiStack {
   }
 
   it should "DELETE" in {
-    delete(s"/v1/prefs/${node.name}/${node.key}") {
+    delete(s"/v1/prefs?name=${node.name}&key=${node.key}") {
       status should be (200)
     }
   }
