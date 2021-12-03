@@ -16,13 +16,16 @@
 
 package org.mbari.vars.userserver.model
 
+import org.mbari.vars.userserver.AppConfig
+
 final case class HealthStatus(
                                jdkVersion: String,
                                availableProcessors: Int,
                                freeMemory: Long,
                                maxMemory: Long,
                                totalMemory: Long,
-                               application: String = "vars-user-server"
+                               application: String = AppConfig.Name,
+                               version: String = AppConfig.Version
                              )
 
 object HealthStatus {
