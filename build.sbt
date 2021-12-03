@@ -84,7 +84,7 @@ lazy val `vars-user-server` = (project in file("."))
     AutomateHeaderPlugin, 
     GitBranchPrompt, 
     GitVersioning, 
-    JettyPlugin
+    JettyPlugin,
     PackPlugin)
   .settings(appSettings)
   .settings(
