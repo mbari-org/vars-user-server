@@ -43,6 +43,7 @@ class UserV1ApiSpec extends WebApiStack {
       "email" -> user.email.get
     ) {
       status should be (200)
+      header("Content-Type") should startWith ("application/json")
       val json = parse(body)
       val u = json.extract[User]
       userCheck(user, u)

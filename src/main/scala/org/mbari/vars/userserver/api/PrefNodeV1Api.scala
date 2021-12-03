@@ -28,11 +28,6 @@ import scala.concurrent.ExecutionContext
 class PrefNodeV1Api(controller: PrefNodeController)(implicit val executor: ExecutionContext)
     extends ApiStack {
 
-  before() {
-    contentType = "application/json"
-    response.headers.set("Access-Control-Allow-Origin", "*")
-  }
-
   get("/") {
     val name = params.get("name").getOrElse(halt(BadRequest(
       body = """{"error": "A 'name' parameter is required"}""",

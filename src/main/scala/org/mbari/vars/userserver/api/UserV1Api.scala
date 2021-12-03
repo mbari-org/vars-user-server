@@ -24,11 +24,6 @@ import scala.concurrent.ExecutionContext
 class UserV1Api(controller: UserController)(implicit  val executor: ExecutionContext)
     extends ApiStack {
 
-  before() {
-    contentType = "application/json"
-    response.headers.set("Access-Control-Allow-Origin", "*")
-  }
-
   get("/") {
     controller.findAll
   }

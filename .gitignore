@@ -2,6 +2,12 @@
 *.iml
 .DS_Store
 *.orig
+.bsp/
+.history/
+.vscode/
+derby.log
+project/metals.sbt
+project/project
 
 # Package Files #
 *.jar

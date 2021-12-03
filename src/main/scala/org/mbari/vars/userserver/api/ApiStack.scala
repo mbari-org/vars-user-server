@@ -42,6 +42,10 @@ abstract class ApiStack extends ScalatraServlet
     with ContentEncodingSupport
     with FutureSupport {
 
+  before() {
+    contentType = "application/json"
+  }
+
   protected[this] val log: Logger = LoggerFactory.getLogger(getClass)
 
   protected[this] implicit val jsonFormats: Formats = json4s.CustomFormats
