@@ -73,11 +73,10 @@ class PrefNodeV1Api(controller: PrefNodeController)(implicit val executor: Execu
   //   controller.findByNodeNameLike(name)
   // }
 
-  get("/startswith/*") {
-    val prefix = params.get("splat")
-      .orElse(params.get("prefix"))
+  get("/startswith") {
+    val prefix = params.get("prefix")
       .getOrElse(halt(BadRequest(
-        body = """{"error": "A 'name' parameter is required"}""",
+        body = """{"error": "A 'prefix' parameter is required"}""",
       )))
     controller.findByNodeNameLike(prefix)
   }
