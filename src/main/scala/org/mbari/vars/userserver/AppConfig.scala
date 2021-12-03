@@ -20,7 +20,7 @@ import scala.util.Try
 
 object AppConfig {
   
-  val Name: String = "annosaurus"
+  val Name: String = "vars-user-server"
 
   val Version: String = Try(getClass.getPackage.getImplementationVersion).getOrElse("0.0.0")
 
