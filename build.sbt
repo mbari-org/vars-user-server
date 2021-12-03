@@ -33,18 +33,6 @@ lazy val buildSettings = Seq(
   licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
 )
 
-lazy val consoleSettings = Seq(
-  shellPrompt := { state =>
-    val user = System.getProperty("user.name")
-    user + "@" + Project.extract(state).currentRef.project + ":sbt> "
-  },
-  initialCommands in console :=
-    """
-      |import java.time.Instant
-      |import java.util.UUID
-    """.stripMargin
-)
-
 lazy val dependencySettings = Seq(
   libraryDependencies ++= {
     Seq(
@@ -86,20 +74,29 @@ lazy val optionSettings = Seq(
 addCommandAlias("cleanall", ";clean;clean-files")
 
 // --- Modules
-lazy val appSettings = buildSettings ++ consoleSettings ++ dependencySettings ++
+lazy val appSettings = buildSettings ++ dependencySettings ++
     optionSettings
 
 lazy val apps = Map("jetty-main" -> "JettyMain")  // for sbt-pack
 
 lazy val `vars-user-server` = (project in file("."))
-  .enablePlugins(JettyPlugin)
-  .enablePlugins(AutomateHeaderPlugin)
-  .enablePlugins(PackPlugin)
+  .enablePlugins(
+    AutomateHeaderPlugin, 
+    GitBranchPrompt, 
+    GitVersioning, 
+    JettyPlugin
+    PackPlugin)
   .settings(appSettings)
   .settings(
     name := "vars-user-server",
-    version := "0.2.7",
     fork := true,
+    // Set version based on git tag. I use "0.0.0" format (no leading "v", which is the default)
+    // Use `show gitCurrentTags` in sbt to update/see the tags
+    git.gitTagToVersionNumber := { tag: String =>
+      if(tag matches "[0-9]+\\..*") Some(tag)
+      else None
+    },
+    git.useGitDescribe := true,
     libraryDependencies ++= Seq(
         "com.auth0" % "java-jwt" % auth0Version,
         "com.fatboyindustrial.gson-javatime-serialisers" % "gson-javatime-serialisers" % gsonJavatimeVersion,
