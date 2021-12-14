@@ -24,4 +24,5 @@ object AppConfig {
 
   val Version: String = Try(getClass.getPackage.getImplementationVersion).getOrElse("0.0.0")
 
+  val Description: String = "VARS User Server"
 }

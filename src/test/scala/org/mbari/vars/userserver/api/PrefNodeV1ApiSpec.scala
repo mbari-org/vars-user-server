@@ -71,21 +71,22 @@ class PrefNodeV1ApiSpec extends WebApiStack {
     }
   }
 
-  it should "GET by name that starts with" in {
-    get(s"/v1/prefs/startswith/${node.name.charAt(0)}") {
-      status should be (200)
-      val json = parse(body)
-      val prefs = json.extract[Array[PrefNode]]
-      prefs.size should be (1)
-      val pref = prefs.head
-      pref.name should be (node.name)
-      pref.key should be (node.key)
-      pref.value should be (node.value)
-    }
-  }
+  // TODO: This test is no longer valid. startswith now requires a prefix query param
+  // it should "GET by name that starts with" in {
+  //   get(s"/v1/prefs/startswith${node.name.charAt(0)}") {
+  //     status should be (200)
+  //     val json = parse(body)
+  //     val prefs = json.extract[Array[PrefNode]]
+  //     prefs.size should be (1)
+  //     val pref = prefs.head
+  //     pref.name should be (node.name)
+  //     pref.key should be (node.key)
+  //     pref.value should be (node.value)
+  //   }
+  // }
 
   it should "GET by name that starts with using `prefix` query param" in {
-    get(s"/v1/prefs/startswith/?prefix=${node.name.charAt(0)}") {
+    get(s"/v1/prefs/startswith?prefix=${node.name.charAt(0)}") {
       status should be (200)
       val json = parse(body)
       val prefs = json.extract[Array[PrefNode]]
