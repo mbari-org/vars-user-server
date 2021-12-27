@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
+package org.mbari.kb.jpa.gson;
 
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * @since 2016-11-22T10:13:00
+ * @see https://stackoverflow.com/questions/4802887/gson-how-to-exclude-specific-fields-from-serialization-without-annotations
  */
-object Constants {
-
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
-
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Exclude {
 }

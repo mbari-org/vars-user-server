@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
+package org.mbari.kb.core;
 
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+public class VARSException extends RuntimeException {
 
-/**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
- */
-object Constants {
+    public VARSException() {
+    }
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    public VARSException(String s) {
+        super(s);
+    }
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    public VARSException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
+
+    public VARSException(Throwable throwable) {
+        super(throwable);
+    }
 }

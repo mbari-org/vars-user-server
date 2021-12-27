@@ -14,23 +14,28 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
+package org.mbari.kb.core;
 
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+//~--- interfaces -------------------------------------------------------------
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * <p>Implement this class to listen for when the {@link PersistenceCache} cleared</p>
+ *
  */
-object Constants {
+public interface CacheClearedListener {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    /**
+     * <p>This method is invoked immediately after the cache is cleared.</p>
+     *
+     * @param evt
+     */
+    void afterClear(CacheClearedEvent evt);
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    /**
+     * <p>This method is invoked immediately before the cache is cleared.</p>
+     *
+     *
+     * @param evt
+     */
+    void beforeClear(CacheClearedEvent evt);
 }

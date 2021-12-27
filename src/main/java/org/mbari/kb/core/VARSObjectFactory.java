@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
-
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+package org.mbari.kb.core;
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * Created by IntelliJ IDEA.
+ * User: brian
+ * Date: Aug 6, 2009
+ * Time: 2:52:07 PM
+ * To change this template use File | Settings | File Templates.
  */
-object Constants {
+public interface VARSObjectFactory {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    /* --- Misc --- */
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    UserAccount newUserAccount();
 }

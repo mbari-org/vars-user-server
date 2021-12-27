@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
+package org.mbari.kb.core;
 
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ *
+ * @author brian
  */
-object Constants {
+public interface PersistenceCacheProvider {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    void clear();
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+
+    void evict(VARSObject entity);
+
 }

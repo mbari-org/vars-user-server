@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
+package org.mbari.kb.core;
 
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+import java.util.prefs.Preferences;
+import java.util.prefs.PreferencesFactory;
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ *
+ * @author brian
  */
-object Constants {
+public interface VarsUserPreferencesFactory extends PreferencesFactory {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    Preferences userRoot(String userName);
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
 }

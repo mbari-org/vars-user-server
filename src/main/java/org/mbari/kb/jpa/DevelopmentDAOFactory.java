@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
+package org.mbari.kb.jpa;
 
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+
+import javax.persistence.EntityManagerFactory;
 
 /**
  * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * @since 2016-11-22T10:50:00
  */
-object Constants {
+public class DevelopmentDAOFactory {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    public static EntityManagerFactory newEntityManagerFactory() {
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+        String nodeName = "org.mbari.vars.knowledgebase.database.development";
+
+        return EntityManagerFactories.newEntityManagerFactory(nodeName);
+
+    }
 }

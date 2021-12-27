@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
-
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+package org.mbari.kb.core;
 
 /**
  * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * @since 2019-08-22T17:05:00
  */
-object Constants {
+public class Preconditions {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    public static void checkArgument(boolean ok) {
+        checkArgument(ok, "Argument failed validation check");
+    }
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    public static final void checkArgument(boolean ok, String msg) {
+        if (!ok) {
+            throw new IllegalArgumentException(msg);
+        }
+    }
 }

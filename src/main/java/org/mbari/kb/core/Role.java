@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
-
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+package org.mbari.kb.core;
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ *
+ * @author brian
  */
-object Constants {
+public interface Role {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    /**
+     * Gets the name of this <code>Role</code>.
+     * @return     The name of this <code>Role</code>.
+     * @uml.property  name="name"
+     */
+    String getName();
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
 }

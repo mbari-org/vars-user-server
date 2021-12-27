@@ -20,7 +20,7 @@ val scalatraVersion = "2.8.2"
 val servletVersion = "3.1.0"
 val slf4jVersion = "2.0.0-alpha5"
 val sqlserverVersion = "9.4.0.jre11"
-val varskbVersion = "11.0.12"
+// val varskbVersion = "11.0.12"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -121,16 +121,13 @@ lazy val `vars-user-server` = (project in file("."))
         "org.eclipse.jetty" % "jetty-server" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-servlets" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-webapp" % jettyVersion % "compile;test",
+        "org.eclipse.persistence" % "org.eclipse.persistence.jpa" % "2.7.9",
         "org.jasypt" % "jasypt" % jasyptVersion,
         "org.json4s" %% "json4s-jackson" % json4sVersion,
-        "org.mbari.vars"               % "org.mbari.kb.jpa"          % varskbVersion,
         "org.scalatest" %% "scalatest" % scalatestVersion % "test",
         "org.scalatra" %% "scalatra" % scalatraVersion,
         "org.scalatra" %% "scalatra-json" % scalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % scalatraVersion,
-        //"org.scalatra" %% "scalatra-slf4j" % scalatraVersion,
-        //"org.scalatra" %% "scalatra-swagger" % scalatraVersion,
-        //"org.scalatra" %% "scalatra-swagger-ext" % scalatraVersion,
         "org.scalatra" %% "scalatra-scalatest" % scalatraVersion)
           .map(_.excludeAll(ExclusionRule("org.slf4j", "slf4j-jdk14"),
             ExclusionRule("org.slf4j", "slf4j-log4j12"),

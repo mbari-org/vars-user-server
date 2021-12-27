@@ -14,23 +14,30 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
-
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+package org.mbari.kb.core;
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * <p>Event that occurs when a {@link PersistenceCache} is cleared.</p>
  */
-object Constants {
+public class CacheClearedEvent {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    private final PersistenceCache cache;
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    /**
+     * Constructs ...
+     *
+     *
+     * @param cache The cache that was cleared.
+     */
+    public CacheClearedEvent(PersistenceCache cache) {
+        this.cache = cache;
+    }
+
+    /**
+     * <p>A reference to the cache object that was cleared.</p>
+     * @return
+     */
+    public PersistenceCache getCache() {
+        return cache;
+    }
 }

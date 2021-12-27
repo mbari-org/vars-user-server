@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
-
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+package org.mbari.kb.core;
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * Thrown when something bad happens in the DataPersistenceService
+ * @author brian
  */
-object Constants {
+public class VARSPersistenceException extends VARSException {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    public VARSPersistenceException(Throwable throwable) {
+        super(throwable);
+    }
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
+    public VARSPersistenceException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
+
+    public VARSPersistenceException(String s) {
+        super(s);
+    }
+
+    public VARSPersistenceException() {
+    }
+
 }

@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package org.mbari.vars.userserver
-
-import org.mbari.kb.jpa.Factories
-import org.mbari.vars.userserver.dao.DAOFactory
-import org.mbari.vars.userserver.dao.jpa.JPADAOFactoryImpl
+package org.mbari.kb.jpa;
 
 /**
- * @author Brian Schlining
- * @since 2017-06-06T15:56:00
+ * Created by IntelliJ IDEA.
+ * User: brian
+ * Date: Aug 6, 2009
+ * Time: 4:05:30 PM
+ * To change this template use File | Settings | File Templates.
  */
-object Constants {
+public interface JPAEntity {
 
-  val DAOFactory: DAOFactory = {
-    val factories = Factories.build()
-    val miscDAOFactory = factories.getMiscDAOFactory
-    new JPADAOFactoryImpl(miscDAOFactory)
-  }
+    Long getId();
 
-  //val DAOFactory: DAOFactory = Constants.Injector.getInstance(classOf[DAOFactory])
 }

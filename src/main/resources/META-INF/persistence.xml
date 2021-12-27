@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+    <persistence-unit name="vars-jpa-knowledgebase" transaction-type="RESOURCE_LOCAL">
+        <description>VARS Data Model</description>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <class>org.mbari.kb.jpa.UserAccountImpl</class>
+        <class>org.mbari.kb.jpa.PreferenceNode</class>
+        <properties>
+            <property name="eclipse.weaving" value="static" />
+            <property name="eclipselink.cache.type.default" value="NONE" />
+            <property name="eclipselink.cache.shared.default" value="false"/>
+            <property name="eclipselink.connection-pool.default.initial" value="2" />
+            <property name="eclipselink.connection-pool.default.max" value="6" />
+            <property name="eclipselink.logging.level" value="INFO"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
