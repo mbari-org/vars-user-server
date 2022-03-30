@@ -5,7 +5,7 @@ val configVersion = "1.4.1"
 val derbyVersion = "10.15.2.0"
 val gsonJavatimeVersion = "1.1.1"
 val gsonVersion = "2.8.9"
-lazy val httpcomponentsVersion = "4.5.13" // override 4.5.6 in scalatratest. It's broken
+val httpcomponentsVersion = "4.5.13" // override 4.5.6 in scalatratest. It's broken
 val hikariVersion = "3.4.5"
 val jasyptVersion = "1.9.3"
 val javamelodyVersion = "1.81.0"
@@ -15,6 +15,7 @@ val jtaVersion = "1.1"
 val junitVersion = "4.13.2"
 val logbackVersion = "1.3.0-alpha10"
 val oracleVersion = "19.3.0.0"
+val postgresqlVersion   = "42.3.3"
 val scalatestVersion = "3.2.10"
 val scalatraVersion = "2.8.2"
 val servletVersion = "3.1.0"
@@ -124,6 +125,7 @@ lazy val `vars-user-server` = (project in file("."))
         "org.eclipse.persistence" % "org.eclipse.persistence.jpa" % "2.7.9",
         "org.jasypt" % "jasypt" % jasyptVersion,
         "org.json4s" %% "json4s-jackson" % json4sVersion,
+        "org.postgresql"                                 % "postgresql"                % postgresqlVersion,
         "org.scalatest" %% "scalatest" % scalatestVersion % "test",
         "org.scalatra" %% "scalatra" % scalatraVersion,
         "org.scalatra" %% "scalatra-json" % scalatraVersion,
