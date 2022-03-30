@@ -1,25 +1,25 @@
-val auth0Version = "3.18.2"
+val auth0Version = "3.19.1"
 val circeVersion      = "0.14.1"
 val codecVersion = "1.15"
-val configVersion = "1.4.1"
+val configVersion = "1.4.2"
 val derbyVersion = "10.15.2.0"
 val gsonJavatimeVersion = "1.1.1"
-val gsonVersion = "2.8.9"
+val gsonVersion = "2.9.0"
 val httpcomponentsVersion = "4.5.13" // override 4.5.6 in scalatratest. It's broken
 val hikariVersion = "3.4.5"
 val jasyptVersion = "1.9.3"
-val javamelodyVersion = "1.81.0"
-val jettyVersion = "9.4.44.v20210927"
-val json4sVersion = "4.0.3"
+val javamelodyVersion = "1.90.0"
+val jettyVersion = "9.4.45.v20220203"
+val json4sVersion = "4.0.4"
 val jtaVersion = "1.1"
 val junitVersion = "4.13.2"
-val logbackVersion = "1.3.0-alpha10"
+val logbackVersion = "1.3.0-alpha14"
 val oracleVersion = "19.3.0.0"
 val postgresqlVersion   = "42.3.3"
-val scalatestVersion = "3.2.10"
+val scalatestVersion = "3.2.11"
 val scalatraVersion = "2.8.2"
 val servletVersion = "3.1.0"
-val slf4jVersion = "2.0.0-alpha5"
+val slf4jVersion = "2.0.0-alpha7"
 val sqlserverVersion = "9.4.0.jre11"
 // val varskbVersion = "11.0.12"
 
@@ -27,8 +27,8 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val buildSettings = Seq(
   organization := "org.mbari",
-  scalaVersion := "2.13.7",
-  crossScalaVersions := Seq("2.13.7"),
+  scalaVersion := "2.13.8",
+  crossScalaVersions := Seq("2.13.8"),
   organizationName := "Monterey Bay Aquarium Research Institute",
   startYear := Some(2017),
   licenses += ("Apache-2.0", new URL("https://www.apache.org/licenses/LICENSE-2.0.txt"))
@@ -122,7 +122,7 @@ lazy val `vars-user-server` = (project in file("."))
         "org.eclipse.jetty" % "jetty-server" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-servlets" % jettyVersion % "compile;test",
         "org.eclipse.jetty" % "jetty-webapp" % jettyVersion % "compile;test",
-        "org.eclipse.persistence" % "org.eclipse.persistence.jpa" % "2.7.9",
+        "org.eclipse.persistence" % "org.eclipse.persistence.jpa" % "2.7.10",
         "org.jasypt" % "jasypt" % jasyptVersion,
         "org.json4s" %% "json4s-jackson" % json4sVersion,
         "org.postgresql"                                 % "postgresql"                % postgresqlVersion,
